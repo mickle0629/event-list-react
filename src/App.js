@@ -1,24 +1,33 @@
-import logo from './logo.svg';
 import './App.css';
+import EventListing from './components/EventListing/EventListing';
+import { useEffect, useState } from 'react';
+import { EventApi } from './api/EventApi';
 
 function App() {
+  const [eventData, setEventData] = useState(null)
+
+  useEffect(() => {
+    // console.log(fetch('localhost:3000/events').then((res) => res.json()))
+    // console.log("Mounted")
+    
+    console.log(EventApi().fetchEvents());
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main className="main-container">
+      <button type="submit" className="add-btn">New Event</button>
+      <h1 className="event-list__title">All Events</h1>
+      <table className="event-list">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Start</th>
+            <th>End</th>
+          </tr>
+        </thead>
+        <EventListing />
+      </table>
+    </main>
   );
 }
 
