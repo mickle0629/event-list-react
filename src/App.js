@@ -6,11 +6,14 @@ import { EventApi } from './api/EventApi';
 function App() {
   const [eventData, setEventData] = useState(null)
 
+  //syncs app w/ external API (JSON-server)
   useEffect(() => {
-    // console.log(fetch('localhost:3000/events').then((res) => res.json()))
-    // console.log("Mounted")
+    EventApi().fetchEvents().then(res => {
+      if (res) {
+        setEventData(res)
+      }
+    });
     
-    console.log(EventApi().fetchEvents());
   }, [])
 
   return (
@@ -25,7 +28,7 @@ function App() {
             <th>End</th>
           </tr>
         </thead>
-        <EventListing />
+        {eventData && <EventListing data={eventData} />}
       </table>
     </main>
   );

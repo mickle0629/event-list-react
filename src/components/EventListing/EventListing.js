@@ -1,15 +1,22 @@
 import styles from './EventListing.module.css'
 
-export default function EventListing() {
+/**
+ * Component that displays all events, does not include the title of the table.
+ * data is an array of event objects. Event objects include an eventName, startDate, endDate, and id, in that order.
+ */
+export default function EventListing({ data }) {
   return (
     <tbody className={styles.allEvents}>
-      <EventRow eventName="Airsoft Day" startDate="2024-07-06" endDate="2024-07-06" />
-      <EventRow eventName="Job Interview" startDate="2024-07-10" endDate="2024-07-10" />
-      <EventRow eventName="Workout Session" startDate="2024-07-12" endDate="2024-07-12" />
+      {
+        data.map((e) => ( //in jsx, function blocks need to be () not {}
+          <EventRow key={e.id} eventName={e.eventName} startDate={e.startDate} endDate={e.endDate}/>
+        ))
+      }
     </tbody>
   )
 }
 
+//Describes each row in the table.
 function EventRow({ eventName, startDate, endDate }) {
   return (
     <tr className={styles.eventRow}>
